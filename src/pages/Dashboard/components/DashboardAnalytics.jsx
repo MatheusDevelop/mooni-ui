@@ -1,10 +1,10 @@
-import { Box, Card, CardBody, CardHeader, Divider, Flex, Grid, GridItem, List, ListItem, Square, Tag, TagLabel, Text } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardHeader, Divider, Flex, Grid, GridItem, List, ListItem, Square, Text } from '@chakra-ui/react';
 import React from 'react';
-import { FiArrowDownCircle, FiBarChart2, FiCreditCard, FiLayers } from "react-icons/fi";
+import { FiBarChart2, FiLayers } from "react-icons/fi";
 import DashboardCashflowAnalytics from './DashboardCashflowAnalytics';
-import { DashboardAmontflowAnalytics } from './DashboardAmountAnalytics';
-import { DashboardExpensesflowAnalytics } from './DashboardExpensesAnalytics';
 import { COSTS_COLORS, DashboardCostsAnalytics } from './DashboardCostsAnalytics';
+import { DashboardCurrentBalanceCard } from './DashboardCurrentBalanceCard';
+import { DashboardExpensesCard } from './DashboardExpensesCard';
 
 export function DashboardAnalytics() {
     return (
@@ -14,67 +14,8 @@ export function DashboardAnalytics() {
                 templateRows='repeat(3, 1fr)'
                 templateColumns='repeat(6, 1fr)' gap={5}
             >
-                <GridItem rowSpan={1} colSpan={3} as={Card} variant={"outline"}>
-                    <CardHeader>
-                        <Flex alignItems={"center"} justifyContent={"space-between"}>
-                            <Square color="gray.500">
-                                <FiCreditCard />
-                            </Square>
-                            <Tag variant='subtle' colorScheme='green' size="sm">
-                                <TagLabel>+6.2%</TagLabel>
-                            </Tag>
-                        </Flex>
-
-                    </CardHeader>
-                    <CardBody>
-                        <Text color="gray.500" fontSize='1xl' mt={2}>
-                            Current balance
-                        </Text>
-                        <Flex alignItems={"end"}>
-                            <Text color="gray.500" fontWeight="500" fontSize='3xl'>
-                                2.000,30
-                            </Text>
-                            <Text color="gray.500" fontWeight="500" fontSize='1xl' pb={2.5} ml={2}>
-                                R$
-                            </Text>
-                            <Box style={{ position: 'absolute', width: 300, right: 0, bottom: 0 }}>
-                                <DashboardAmontflowAnalytics />
-                            </Box>
-                        </Flex>
-                    </CardBody>
-                </GridItem>
-                <GridItem rowSpan={1} colSpan={3} as={Card} variant={"outline"}>
-                    <CardHeader>
-                        <Flex alignItems={"center"} justifyContent={"space-between"}>
-                            <Square color="gray.500">
-                                <FiArrowDownCircle />
-                            </Square>
-                            <Tag variant='subtle' colorScheme='red' size="sm">
-                                <TagLabel>+2.0%</TagLabel>
-                            </Tag>
-                        </Flex>
-
-                    </CardHeader>
-                    <CardBody>
-                        <Text color="gray.500" fontSize='1xl' mt={2}>
-                            Expenses
-                        </Text>
-                        <Flex alignItems={"end"}>
-                            <Flex alignItems={"end"} marginRight={5}>
-                                <Text color="gray.500" fontWeight="500" fontSize='3xl'>
-                                    5.750,30
-                                </Text>
-                                <Text color="gray.500" fontWeight="500" fontSize='1xl' pb={2.5} ml={2}>
-                                    R$
-                                </Text>
-                            </Flex>
-                            <Box style={{ position: 'absolute', width: 300, right: 0, bottom: 0 }}>
-                                <DashboardExpensesflowAnalytics />
-                            </Box>
-                        </Flex>
-
-                    </CardBody>
-                </GridItem>
+                <DashboardCurrentBalanceCard />
+                <DashboardExpensesCard />
                 <GridItem rowSpan={2} colSpan={4} as={Card} variant={"outline"}>
                     <CardHeader>
                         <Flex alignItems={"center"}>
@@ -124,3 +65,5 @@ export function DashboardAnalytics() {
         </Box>
     );
 }
+
+

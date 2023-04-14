@@ -15,7 +15,7 @@ export function CreateNewTransactionDrawerContent({ closeDrawer, onCreate }) {
 
     const [transaction, setTransaction] = useState({
         name: "",
-        type: 1,
+        type: 0,
         amount: "",
         date: new Date(),
         paid: true,
@@ -52,10 +52,10 @@ export function CreateNewTransactionDrawerContent({ closeDrawer, onCreate }) {
                     onChange={e => setTransaction(s => ({ ...s, type: +e }))}
                 >
                     <Stack spacing={5} direction='row'>
-                        <Radio colorScheme='blue' value={'1'}>
+                        <Radio colorScheme='blue' value={'0'}>
                             Expense
                         </Radio>
-                        <Radio colorScheme='blue' value={'2'}>
+                        <Radio colorScheme='blue' value={'1'}>
                             Income
                         </Radio>
                         {/* <Radio colorScheme='blue' value={'3'}>
@@ -152,14 +152,14 @@ export function CreateNewTransactionDrawerContent({ closeDrawer, onCreate }) {
                         <Switch />
                     </Box>
                 </Flex> */}
-                <Flex alignItems={"center"} justifyContent={"start "} mt={2}>
+                {/* <Flex alignItems={"center"} justifyContent={"start "} mt={2}>
                     <Text fontSize="sm" color="gray.400" fontWeight={"medium"} mr={10} width={"160px"}>
                         Mark as paid
                     </Text>
                     <Box>
                         <Switch isChecked={transaction.paid} onChange={() => setTransaction(s => ({ ...s, paid: !s.paid }))} />
                     </Box>
-                </Flex>
+                </Flex> */}
                 {/* <Accordion allowToggle mt={5}>
                     <AccordionItem>
                         <AccordionButton>

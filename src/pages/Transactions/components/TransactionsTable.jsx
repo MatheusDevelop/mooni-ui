@@ -1,25 +1,50 @@
-import { Card, Flex, Square, Table, TableContainer, Tag, TagLabel, TagLeftIcon, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Card, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, MenuOptionGroup, Square, Table, TableContainer, Tag, TagLabel, TagLeftIcon, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { FiMap } from 'react-icons/fi';
+import { FiDelete, FiMap, FiMoreHorizontal, FiTrash } from 'react-icons/fi';
 import { SiUber } from 'react-icons/si';
 import { useTable } from 'react-table';
 import { CategoryTag } from '../../../sharedComponents/CategoryTag';
-import TransactionIcon from './TransactionIcon';
-import getTransactions from '../../../services/transactions/getTransactions';
 import { format } from 'date-fns';
 
-function TransactionsTable({ transactions }) {
+function TransactionsTable({ transactions, handleDeleteClick }) {
     const columns = React.useMemo(
         () => [
             {
                 Header: 'Name',
                 accessor: 'name',
                 Cell: ({ value: name, row }) => {
-                    // const { transactionIconId, transactionIconColor } = row.original
+                    const { id } = row.original
                     return (
-                        <Flex alignItems="center">
+                        <Flex alignItems="center" position={"relative"}>
+                            <Menu
+                                position="absolute"
+                                autoSelect={false}
+                            >
+                                <MenuButton
+                                    as={IconButton}
+                                    size="sm"
+                                    position={"absolute"}
+                                    left="0"
+                                    top="-1.5"
+                                    icon={<FiMoreHorizontal />}
+                                    colorScheme='orange'
+                                    variant={"outline"}
+                                />
+                                <MenuList
+                                    minWidth='150px'
+                                >
+                                    <MenuItem
+                                        icon={<FiTrash />}
+                                        autoFocus="false"
+                                        onClick={() => handleDeleteClick(id)}
+                                    >
+                                        Delete
+                                    </MenuItem>
+
+                                </MenuList>
+                            </Menu>
                             {/* <TransactionIcon iconId={transactionIconId} color={transactionIconColor} /> */}
-                            <Text fontWeight={"500"} color="gray.600" ml={2}>{name}</Text>
+                            <Text fontWeight={"500"} color="gray.600" ml={"45px"}>{name}</Text>
                         </Flex>
                     )
                 }
@@ -28,14 +53,17 @@ function TransactionsTable({ transactions }) {
             {
                 Header: 'Category',
                 accessor: 'categoryName',
+                width: 100,
                 Cell: ({ value: categoryName, row }) => {
                     const { categoryIconId, categoryColor } = row.original;
                     return (
-                        <CategoryTag
-                            iconId={categoryIconId}
-                            color={categoryColor}
-                            name={categoryName}
-                        />
+                        <>
+                            <CategoryTag
+                                iconId={categoryIconId}
+                                color={categoryColor}
+                                name={categoryName}
+                            />
+                        </>
                     )
                 }
 
@@ -52,9 +80,9 @@ function TransactionsTable({ transactions }) {
                 Cell: (p) => {
                     return (
                         <Tag fontWeight={"medium"}
-                            colorScheme={p.row.original.type == 1 ? "red" : "green"}>
+                            colorScheme={p.row.original.type == 0 ? "red" : "green"}>
                             <TagLabel>
-                                {p.row.original.type == 1 ? "-" : "+"} {p.value}
+                                {p.row.original.type == 0 ? "-" : "+"} {p.value}
                             </TagLabel>
                         </Tag>
                     )
@@ -63,8 +91,19 @@ function TransactionsTable({ transactions }) {
             {
                 Header: 'Date',
                 accessor: 'date',
-                Cell: ({ value }) => <Text fontWeight={"500"} fontSize="sm" color="gray.800">{format(new Date(value), 'dd/MM/yyyy')}</Text>
-            },
+                Cell: ({ value, row }) => {
+                    const { id } = row.original
+                    return (
+                        <Flex position={"relative"}>
+                            <Text fontWeight={"500"} fontSize="sm" color="gray.800">
+                                {format(new Date(value), 'dd/MM/yyyy')}
+                            </Text>
+                        </Flex>
+
+                    )
+                }
+
+            }
         ],
         []
     )
@@ -77,7 +116,7 @@ function TransactionsTable({ transactions }) {
         prepareRow,
     } = tableInstance
     return (
-        <Table {...getTableProps()} variant="simple">
+        <Table {...getTableProps()} variant="simple" size="md">
             <Thead>
                 {// Loop over the header rows
                     headerGroups.map(headerGroup => (
@@ -86,8 +125,14 @@ function TransactionsTable({ transactions }) {
                             {// Loop over the headers in each row
                                 headerGroup.headers.map((column, i) => (
                                     // Apply the header cell props
-                                    <Th {...column.getHeaderProps()}
-                                        color="gray.400" fontWeight="500" fontSize={14} fontFamily={"'Ubuntu'"} textTransform={"capitalize"}
+                                    <Th
+                                        {...column.getHeaderProps()}
+
+                                        color="gray.400"
+                                        fontWeight="500"
+                                        fontSize={14}
+                                        fontFamily={"'Ubuntu'"}
+                                        textTransform={"capitalize"}
                                     >
                                         {// Render the header
 
@@ -107,17 +152,18 @@ function TransactionsTable({ transactions }) {
                         return (
                             // Apply the row props
                             <Tr {...row.getRowProps()}
-                                _hover={{
-                                    background: "gray.50",
-                                    transition: ".1s all ease-in-out"
-                                }}
-                                cursor="pointer"
+                            // _hover={{
+                            //     background: "gray.50",
+                            //     transition: ".1s all ease-in-out"
+                            // }}
+                            // cursor="pointer"
                             >
                                 {// Loop over the rows cells
                                     row.cells.map(cell => {
                                         // Apply the cell props
                                         return (
-                                            <Td {...cell.getCellProps()}>
+                                            <Td
+                                                {...cell.getCellProps()}>
                                                 {// Render the cell contents
                                                     cell.render('Cell')}
                                             </Td>

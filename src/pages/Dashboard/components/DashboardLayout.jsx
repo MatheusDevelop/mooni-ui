@@ -6,7 +6,7 @@ import { DashboardHeader } from './DashboardHeader';
 
 export function DashboardLayout() {
     return (
-        <Flex width="100vw" height="100vh">
+        <Flex flex="1" minH={"100vh"}>
             <DashboardHeader />
             <Sidebar />
             <Outlet />

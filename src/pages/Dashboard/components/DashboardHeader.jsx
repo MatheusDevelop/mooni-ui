@@ -7,7 +7,7 @@ export function DashboardHeader() {
     const { firstName, avatarUrl } = useUserStore(s => s)
     return (
         <>
-            <Box position="fixed" top="0" left="0" width="100%" background="whiteAlpha.600">
+            <Box position="fixed" top="0" left="0" width="100%" background="whiteAlpha.600" backdropFilter={"blur(5px)"} zIndex={"901"}>
                 <Flex padding={5} paddingLeft="220px" alignItems={"center"} justifyContent={"space-between"}>
                     <Box>
                         <InputGroup

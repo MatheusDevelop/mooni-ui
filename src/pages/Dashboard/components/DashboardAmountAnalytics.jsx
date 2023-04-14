@@ -1,40 +1,36 @@
+import { Card, Tag, TagLabel, Text } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
-import React from 'react';
-import { LineChart, Line, YAxis, XAxis, CartesianAxis, CartesianGrid, ResponsiveContainer, AreaChart, Area } from 'recharts';
-export function DashboardAmontflowAnalytics() {
-    const data = [
-        {
-            name: '1º w',
-            uv: 100,
-            pv: 100,
-        },
-        {
-            name: "2º w",
-            uv: 200,
-            pv: 400,
-        },
-        {
-            name: "3º w",
-            uv: 300,
-            pv: 500,
-        },
-        {
-            name: "4º w",
-            uv: 100,
-            pv: 200,
-        },
-    ];
+import React, { useEffect } from 'react';
+import { LineChart, Line, YAxis, XAxis, CartesianAxis, CartesianGrid, ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
+export function DashboardAmontflowAnalytics({ data, id }) {
+    const el = document.getElementById(id)
+    console.log(el.clientWidth, el)
     return (
-        <ResponsiveContainer width={"100%"} height={150}>
-            <AreaChart data={data}>
+        <ResponsiveContainer width={"100%"} height={el.clientHeight - 30} >
+            <AreaChart data={data} >
                 <defs>
                     <linearGradient id="g384" gradientUnits="userSpaceOnUse" x1="20%" y1="10%" x2="100%" y2="0%">
-                        <stop stop-color="#FFFFFF20" offset="0" /><stop stop-color="#DD6B2020" offset="1" />
+                        <stop stop-color="#FFFFFF20" offset="0" /><stop stopColor="#DD6B2020" offset="1" />
                     </linearGradient>
                 </defs>
+                <Tooltip content={<CustomTooltip />} position={{ x: -el.clientWidth + 315, y: el.clientHeight - 70 }} wrapperStyle={{ outline: "none" }} />
                 <Area
-                    dataKey="pv" stroke="url(#colorUv)" fill="url(#g384)" />
+                    id="chartX"
+                    key={"chartX"}
+                    isAnimationActive={true}
+                    dataKey="value" stroke="url(#colorUv)" fill="url(#g384)" />
             </AreaChart >
         </ResponsiveContainer>
     )
 }
+const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+        return (
+            <Tag size="md">
+                <TagLabel color="gray.600" fontWeight={400}>{`Day ${label + 1} `}<span style={{ fontWeight: 500 }}>R${payload[0].value}</span></TagLabel>
+            </Tag>
+        );
+    }
+
+    return null;
+};
