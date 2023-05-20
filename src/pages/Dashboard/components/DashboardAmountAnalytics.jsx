@@ -13,7 +13,7 @@ export function DashboardAmontflowAnalytics({ data, id }) {
                         <stop stop-color="#FFFFFF20" offset="0" /><stop stopColor="#DD6B2020" offset="1" />
                     </linearGradient>
                 </defs>
-                <Tooltip content={<CustomTooltip />} position={{ x: -el.clientWidth + 315, y: el.clientHeight - 70 }} wrapperStyle={{ outline: "none" }} />
+                <Tooltip content={<CustomTooltip />} wrapperStyle={{ outline: "none" }} position={{ x: -el.clientWidth + 315, y: el.clientHeight - 70 }}  />
                 <Area
                     id="chartX"
                     key={"chartX"}

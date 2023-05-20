@@ -1,6 +1,6 @@
 import { Box, Center, Divider, Flex, Text, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { FiActivity, FiBook, FiCheckCircle, FiCompass, FiHome } from "react-icons/fi";
+import { FiActivity, FiBook, FiCheckCircle, FiCompass, FiHome, FiList } from "react-icons/fi";
 import { TbArrowsExchange } from "react-icons/tb";
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ export function Sidebar() {
             id: "/transactions", label: "Transactions", icon: <TbArrowsExchange size={18} />
         },
         {
-            id: "/goals", label: "Goals", icon: <FiCheckCircle size={18} />
+            id: "/categories", label: "Categories", icon: <FiList size={18} />
         },
         // {
         //     id: "/planning", label: "Planning", icon: <FiCompass size={18} />

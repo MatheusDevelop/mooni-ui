@@ -7,8 +7,8 @@ export function DashboardHeader() {
     const { firstName, avatarUrl } = useUserStore(s => s)
     return (
         <>
-            <Box position="fixed" top="0" left="0" width="100%" background="whiteAlpha.600" backdropFilter={"blur(5px)"} zIndex={"901"}>
-                <Flex padding={5} paddingLeft="220px" alignItems={"center"} justifyContent={"space-between"}>
+            <Box position="fixed" top="0" left="0" width="100%" background="whiteAlpha.600" backdropFilter={"blur(5px)"} height="80px" zIndex={"901"}>
+                {/* <Flex padding={5} paddingLeft="220px" alignItems={"center"} justifyContent={"space-between"}>
                     <Box>
                         <InputGroup
                             size="md"
@@ -24,13 +24,13 @@ export function DashboardHeader() {
                             <InputLeftElement pointerEvents={'none'} children={<FiSearch size={18} />} />
                         </InputGroup>
                     </Box>
-                </Flex>
-                <Divider />
+                </Flex> */}
+                <Divider sx={{ position: "absolute", bottom: 0 }} />
             </Box>
             <Box zIndex={'905'} position="fixed" right="15px" top="20px">
                 <Flex alignItems="center" justifyContent={"flex-end"}>
                     <IconButton colorScheme='blue' aria-label='Search database' icon={<FiPlus />} size="sm" mr={2} />
-                    <IconButton aria-label='Search database' icon={<FiBell />} size="sm" mr={4} />
+                    {/* <IconButton aria-label='Notifications' icon={<FiBell />} size="sm" mr={4} /> */}
                     <Flex alignItems={"center"} cursor={"pointer"} color="gray.500  " _hover={{ color: "gray.900" }} borderRadius={"md"} p={1}>
                         <Flex pr={4}>
                             <Text fontWeight={"400"} fontSize={"small"} pr={1}>

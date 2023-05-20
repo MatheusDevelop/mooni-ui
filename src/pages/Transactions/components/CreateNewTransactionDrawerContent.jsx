@@ -134,13 +134,23 @@ export function CreateNewTransactionDrawerContent({ closeDrawer, onCreate }) {
                         /> */}
                     </div>
                 </Flex>
-                <Flex alignItems={"center"} justifyContent={"start "} mt={2}>
+                {/* <Flex alignItems={"center"} justifyContent={"start "} mt={2}>
                     <Text fontSize="sm" color="gray.400" fontWeight={"medium"} mr={10} width={"160px"}>
                         Set as overdue date
                     </Text>
                     <Box>
                         <Switch
                             isChecked={transaction.asOverdueDate} onChange={() => setTransaction(s => ({ ...s, asOverdueDate: !s.asOverdueDate }))}
+                        />
+                    </Box>
+                </Flex> */}
+                <Flex alignItems={"center"} justifyContent={"start "} mt={2}>
+                    <Text fontSize="sm" color="gray.400" fontWeight={"medium"} mr={10} width={"160px"}>
+                        Mark as paid
+                    </Text>
+                    <Box>
+                        <Switch
+                            isChecked={transaction.paid} onChange={() => setTransaction(s => ({ ...s, paid: !s.paid }))}
                         />
                     </Box>
                 </Flex>

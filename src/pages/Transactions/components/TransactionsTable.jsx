@@ -1,14 +1,16 @@
-import { Card, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, MenuOptionGroup, Square, Table, TableContainer, Tag, TagLabel, TagLeftIcon, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Card, Checkbox, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, MenuOptionGroup, Square, Table, TableContainer, Tag, TagLabel, TagLeftIcon, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { FiDelete, FiMap, FiMoreHorizontal, FiTrash } from 'react-icons/fi';
 import { SiUber } from 'react-icons/si';
 import { useTable } from 'react-table';
 import { CategoryTag } from '../../../sharedComponents/CategoryTag';
 import { format } from 'date-fns';
+import updatePayment from '../../../services/transactions/updatePayment';
 
 function TransactionsTable({ transactions, handleDeleteClick }) {
     const columns = React.useMemo(
         () => [
+
             {
                 Header: 'Name',
                 accessor: 'name',
@@ -103,7 +105,16 @@ function TransactionsTable({ transactions, handleDeleteClick }) {
                     )
                 }
 
-            }
+            },
+            {
+                Header: 'Paid',
+                accessor: 'paid',
+                Cell: ({ value: name, row }) => {
+                    return (
+                        <PaymentCheckbox row={row} />
+                    )
+                }
+            },
         ],
         []
     )
@@ -178,3 +189,19 @@ function TransactionsTable({ transactions, handleDeleteClick }) {
 }
 
 export default TransactionsTable;
+
+function PaymentCheckbox({ row }) {
+    const [paid, setPaid] = useState(row.original.paid);
+    const [loading, setLoading] = useState(false);
+    return <Flex alignItems="center" position={"relative"}>
+        <Checkbox
+            isChecked={paid}
+            disabled={loading}
+            size="lg" onChange={async () => {
+                setLoading(true)
+                const { paid: isPaid } = await updatePayment(row.original.id, !paid)
+                setPaid(isPaid)
+                setLoading(false)
+            }} />
+    </Flex>;
+}
